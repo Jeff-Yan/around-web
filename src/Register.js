@@ -1,4 +1,4 @@
-import { Form, Input, Button, } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import React from 'react';
 
 const FormItem = Form.Item;
@@ -10,16 +10,34 @@ class RegistrationForm extends React.Component {
         autoCompleteResult: [],
     };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    }
+  handleSubmit = (e) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        fetch(`https://around-75015.appspot.com/api/v1
+/signup`, {
+          method: 'POST',
+          body: JSON.stringify({
+            username: values.username,
+            password: values.password,
+          }),
+        }).then((response) => {
+          if (response.ok) {
+            return response;
+          }
+          throw new Error(response.statusText);
+        }).then(() => {
+          message.success('Registration Succeed');
+        }).catch((e) => {
+          message.error('Registration Failed');
+          console.log(e);
+        })
+      }
+    });
+  }
 
-    handleConfirmBlur = (e) => {
+
+  handleConfirmBlur = (e) => {
         const value = e.target.value;
         this.setState({ confirmDirty: this.state.confirmDirty || !!value });
     }
