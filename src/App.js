@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './App.css';
+
 
 import {TopBar} from './TopBar'
 import {Register} from './Register'
+import {Main} from './main'
 
 
 class App extends Component {
@@ -10,7 +11,7 @@ class App extends Component {
     return (
       <div className="App">
         <TopBar />
-        <Register />
+        <Main/>
       </div>
     );
   }
