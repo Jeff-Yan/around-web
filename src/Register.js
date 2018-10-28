@@ -1,5 +1,6 @@
 import { Form, Input, Button, message } from 'antd';
 import React from 'react';
+import {API_ROOT} from './constants'
 
 const FormItem = Form.Item;
 
@@ -14,8 +15,7 @@ class RegistrationForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        fetch(`https://around-75015.appspot.com/api/v1
-/signup`, {
+        fetch(`${API_ROOT}/signup`, {
           method: 'POST',
           body: JSON.stringify({
             username: values.username,
